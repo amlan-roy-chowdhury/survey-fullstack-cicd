@@ -1,6 +1,3 @@
-# survey-fullstack-cicd
-
-
 # SWE 645 HW3 - Survey Fullstack App (Spring Boot + Vue.js + CI/CD + Kubernetes)
 
 ## Project Overview
