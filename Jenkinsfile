@@ -17,8 +17,8 @@ pipeline {
         stage('Build Backend Image') {
             steps {
                 dir('springboot-survey-backend') {
-                    sh 'docker build --platform linux/amd64 -t $DOCKER_IMAGE_BACKEND .'
                     withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        sh 'docker build --platform linux/amd64 -f ../infra/Dockerfile -t $DOCKER_IMAGE_BACKEND .'
                         sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
                         sh 'docker push $DOCKER_IMAGE_BACKEND'
                     }
@@ -26,14 +26,13 @@ pipeline {
             }
         }
 
+
         stage('Build Frontend Image') {
             steps {
-                dir('survey-vue-client') {
+                withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh 'docker build --platform linux/amd64 -f infra/ui.Dockerfile -t $DOCKER_IMAGE_FRONTEND .'
-                    withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                        sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                        sh 'docker push $DOCKER_IMAGE_FRONTEND'
-                    }
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    sh 'docker push $DOCKER_IMAGE_FRONTEND'
                 }
             }
         }
