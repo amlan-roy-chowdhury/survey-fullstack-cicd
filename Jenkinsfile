@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: 'github-creds', url: 'https://github.com/your-username/your-repo.git'
+                git credentialsId: 'github-creds', url: 'https://github.com/amlan-roy-chowdhury/survey-fullstack-cicd.git'
             }
         }
 
