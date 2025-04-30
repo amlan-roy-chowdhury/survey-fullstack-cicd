@@ -9,8 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'github-creds', url: 'https://github.com/amlan-roy-chowdhury/survey-fullstack-cicd.git'
-
+                git credentialsId: 'github-creds', url: 'https://github.com/amlan-roy-chowdhury/survey-fullstack-cicd.git'
             }
         }
 
@@ -25,7 +24,6 @@ pipeline {
                 }
             }
         }
-
 
         stage('Build Frontend Image') {
             steps {
