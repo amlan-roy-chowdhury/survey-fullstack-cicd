@@ -16,7 +16,8 @@ pipeline {
         stage('Build Backend Image') {
             steps {
                 dir('backend') {
-                    sh './mvnw clean package -DskipTests'
+                    // Use system Maven instead of ./mvnw (avoids wrapper errors)
+                    sh 'mvn clean package -DskipTests'
                 }
 
                 dir('backend') {
