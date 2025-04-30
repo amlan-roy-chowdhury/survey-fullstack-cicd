@@ -34,13 +34,14 @@ pipeline {
             steps {
                 dir('frontend') {
                     withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                        sh 'docker build --platform linux/amd64 -f ../infra/ui.Dockerfile -t $DOCKER_IMAGE_FRONTEND .'
+                        sh 'docker build --platform linux/amd64 -f ../infra/ui.Dockerfile -t $DOCKER_IMAGE_FRONTEND ..'
                         sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
                         sh 'docker push $DOCKER_IMAGE_FRONTEND'
                     }
                 }
             }
         }
+
 
         stage('Deploy to Kubernetes') {
             steps {
