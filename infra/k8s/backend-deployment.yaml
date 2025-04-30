@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: survey-api
+  labels:
+    app: survey-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: survey-api
+  template:
+    metadata:
+      labels:
+        app: survey-api
+    spec:
+      containers:
+        - name: survey-api-container
+          image: arc2233/survey-api:amd64-v1.0
+          ports:
+            - containerPort: 8080

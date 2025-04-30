@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: survey-ui
+  labels:
+    app: survey-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: survey-ui
+  template:
+    metadata:
+      labels:
+        app: survey-ui
+    spec:
+      containers:
+        - name: survey-ui-container
+          image: arc2233/survey-ui:amd64-v1.0
+          ports:
+            - containerPort: 80
